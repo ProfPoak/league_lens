@@ -15,5 +15,5 @@ export const LEAGUES = [
   { id: 4380, apiName: "NHL", name: "NHL", sport: "Hockey", level: "Professional" },
 
   // Soccer
-  { id: 4684, apiName: "American_USL_Championship", name: "USL Championship", sport: "Soccer", level: "Professional" },
+  { id: 4346, apiName: "American_Major_League_Soccer", name: "MLS", sport: "Soccer", level: "Professional" },
 ];

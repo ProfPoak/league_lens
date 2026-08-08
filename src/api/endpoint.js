@@ -1,7 +1,7 @@
 const BASE_URL = "https://www.thesportsdb.com/api/v1/json/123";
 
 export const buildTeamsByLeagueUrl = (leagueId) =>
-    `${BASE_URL}/lookup_all_teams.php?id=${leagueId}`,
+    `${BASE_URL}/lookup_all_teams.php?id=${leagueId}`;
 
 export const buildLeagueScheduleUrl = (leagueId) =>
   `${BASE_URL}/eventsnextleague.php?id=${leagueId}`;

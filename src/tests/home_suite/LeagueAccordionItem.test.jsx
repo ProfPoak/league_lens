@@ -8,10 +8,6 @@ import { useSportsDbFetch } from "../../hooks/useSportsDbFetch";
 // filter state, and wiring data/status into presentational children. Every
 // child component and the fetch hook are mocked so these tests only
 // exercise LeagueAccordionItem's own logic, not the children's internals.
-// (Note: as of this writing LeagueAccordionItem.jsx is still the Day-1
-// stub — these tests target the fuller version described in
-// homepage-accordion-implementation-guide.md and should fail until that's
-// built out.)
 
 vi.mock("../../hooks/useSportsDbFetch", () => ({
   useSportsDbFetch: vi.fn(),

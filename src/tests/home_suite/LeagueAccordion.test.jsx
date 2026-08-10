@@ -9,11 +9,11 @@ import { LEAGUES } from "../../utils/leagues";
 // We mock LeagueAccordionItem so these tests only exercise the parent's
 // single-expand logic, not the child's internals.
 
-vi.mock("./LeagueAccordionItem", () => ({
+vi.mock("../../components/home/LeagueAccordionItem", () => ({
   default: ({ league, isOpen, onToggle }) => (
     <div>
-      <button onClick={onToggle}>{league.name}</button>
-      <span data-testid={`state-${league.id}`}>
+      <button onClick={onToggle}>{league?.name}</button>
+      <span data-testid={`state-${league?.id}`}>
         {isOpen ? "open" : "closed"}
       </span>
     </div>

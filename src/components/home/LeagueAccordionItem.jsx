@@ -37,6 +37,8 @@ import { useSportsDbFetch } from '../../hooks/useSportsDbFetch';
       <Collapsible isOpen={isOpen}>
         {isOpen && (
           <>
+            <header>API free tier will only return the first 10 teams of the league</header>
+            
             <FilterInput value={filterText} onChange={setFilterText} />
 
             {teamsResult.isLoading && <Spinner />}

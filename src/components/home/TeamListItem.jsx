@@ -1,9 +1,12 @@
-function TeamListItem () {
+import { Link } from "react-router-dom"
+
+function TeamListItem ({ team }) {
 
     return (
-        <div>
-            <h1>Team</h1>
-        </div>
+        <Link to={`/team/${team.idTeam}`} className="team-list-item">
+            <img src={team.strBadge} alt={`${team.strTeam} logo`} />
+            <h3>{team.strTeam}</h3>
+        </Link>
     )
 }
 

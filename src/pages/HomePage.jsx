@@ -1,9 +1,10 @@
+import LeagueAccordion from '../components/home/LeagueAccordion'
 
 function HomePage() {
 
     return(
         <>
-        <h1>League Lens</h1>
+        <LeagueAccordion />
         </>
     )
 }

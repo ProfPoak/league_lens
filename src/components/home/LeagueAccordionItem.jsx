@@ -11,6 +11,7 @@ import { useSportsDbFetch } from '../../hooks/useSportsDbFetch';
 
  function LeagueAccordionItem({ league, isOpen, onToggle}) {
     const [filterText, setFilterText] = useState("");
+    const panelId = `league-panel-${league.id}`;
 
     const teamsResult = useSportsDbFetch(
         () => (isOpen ? buildTeamsByLeagueUrl(league.apiName) : null),
@@ -34,7 +35,7 @@ import { useSportsDbFetch } from '../../hooks/useSportsDbFetch';
         {league.name}
       </button>
 
-      <Collapsible isOpen={isOpen}>
+      <Collapsible id={panelId} isOpen={isOpen}>
         {isOpen && (
           <>
             <header>API free tier will only return the first 10 teams of the league</header>

@@ -24,8 +24,6 @@ function LeagueSchedulePreview ({ data, status }) {
             ))}
             </ul>
 
-            {console.log(events)}
-
         </div>
     )
 }

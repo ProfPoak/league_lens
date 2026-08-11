@@ -30,15 +30,17 @@ import { useSportsDbFetch } from '../../hooks/useSportsDbFetch';
     );
 
     return (
-    <div>
-      <button onClick={onToggle} aria-expanded={isOpen}>
+    <div className="league-accordion-item">
+      <button className="league-accordion-item__button" onClick={onToggle} aria-expanded={isOpen}>
         {league.name}
       </button>
 
       <Collapsible id={panelId} isOpen={isOpen}>
         {isOpen && (
-          <>
-            <header>API free tier will only return the first 10 teams of the league</header>
+          <div className="league-accordion-item__panel">
+            <p className="league-accordion-item__note">
+              API free tier will only return the first 10 teams of the league
+            </p>
             
             <FilterInput value={filterText} onChange={setFilterText} />
 
@@ -50,15 +52,17 @@ import { useSportsDbFetch } from '../../hooks/useSportsDbFetch';
               <EmptyState message="No teams match your filter." />
             )}
 
-            {filteredTeams.map((team) => (
-              <TeamListItem key={team.idTeam} team={team} />
-            ))}
+            <div className="team-list">
+              {filteredTeams.map((team) => (
+                <TeamListItem key={team.idTeam} team={team} />
+              ))}
+            </div>
 
             <LeagueSchedulePreview
               data={scheduleResult.data}
               status={scheduleResult.status}
             />
-          </>
+          </div>
         )}
       </Collapsible>
     </div>

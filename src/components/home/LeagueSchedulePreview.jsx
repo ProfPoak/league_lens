@@ -5,7 +5,7 @@ function LeagueSchedulePreview ({ data, status }) {
     const events = data?.events ?? []
 
     return (
-        <div>
+        <div className="schedule-preview">
             <h3>Next League Event:</h3>
 
             {status === "error" && (

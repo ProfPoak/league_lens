@@ -5,12 +5,10 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import TeamPage from "../../pages/TeamPage";
 import { useSportsDbFetch } from "../../hooks/useSportsDbFetch";
 
-// TeamPage owns two things per the pseudocode: the team fetch (existing
-// buildTeamLookupUrl) and the activeTab state ("overview" | "roster" |
-// "schedule"), defaulting to "overview". It mirrors the state-owner /
-// data-fetcher split already used by LeagueAccordion -> LeagueAccordionItem.
-// TeamTabs and the three tab components are mocked so these tests only
-// exercise TeamPage's own status-branching and tab-switching logic.
+// TeamPage now only switches between two tabs: "overview" and "roster".
+// TeamScheduleTab no longer exists — schedule content moved inline into
+// TeamOverviewTab via TeamScheduleCard, so TeamOverviewTab now also
+// receives a `teamId` prop alongside `team`.
 
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
@@ -37,21 +35,20 @@ vi.mock("../../components/team/TeamTabs", () => ({
     <div data-testid="team-tabs" data-active={activeTab}>
       <button onClick={() => onTabChange("overview")}>overview</button>
       <button onClick={() => onTabChange("roster")}>roster</button>
-      <button onClick={() => onTabChange("schedule")}>schedule</button>
     </div>
   ),
 }));
 
 vi.mock("../../components/team/TeamOverviewTab", () => ({
-  default: ({ team }) => <div data-testid="overview-tab">{team?.strTeam}</div>,
+  default: ({ team, teamId }) => (
+    <div data-testid="overview-tab" data-team-id={teamId}>
+      {team?.strTeam}
+    </div>
+  ),
 }));
 
 vi.mock("../../components/team/TeamRosterTab", () => ({
   default: ({ teamId }) => <div data-testid="roster-tab">{teamId}</div>,
-}));
-
-vi.mock("../../components/team/TeamScheduleTab", () => ({
-  default: ({ teamId }) => <div data-testid="schedule-tab">{teamId}</div>,
 }));
 
 const idleResult = { data: null, status: "idle", error: null, isLoading: false };
@@ -115,12 +112,13 @@ describe("TeamPage", () => {
     expect(screen.getByTestId("team-tabs")).toHaveAttribute("data-active", "overview");
   });
 
-  it("renders TeamOverviewTab with the fetched team by default", () => {
+  it("renders TeamOverviewTab with the fetched team and teamId by default", () => {
     stubTeamFetch(foundTeamResult);
     renderTeamPage();
-    expect(screen.getByTestId("overview-tab")).toHaveTextContent("Kansas City Chiefs");
+    const overview = screen.getByTestId("overview-tab");
+    expect(overview).toHaveTextContent("Kansas City Chiefs");
+    expect(overview).toHaveAttribute("data-team-id", "134946");
     expect(screen.queryByTestId("roster-tab")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("schedule-tab")).not.toBeInTheDocument();
   });
 
   it("switches to TeamRosterTab and passes teamId when TeamTabs reports a change", async () => {
@@ -134,17 +132,6 @@ describe("TeamPage", () => {
     expect(screen.queryByTestId("overview-tab")).not.toBeInTheDocument();
   });
 
-  it("switches to TeamScheduleTab and passes teamId when TeamTabs reports a change", async () => {
-    const user = userEvent.setup();
-    stubTeamFetch(foundTeamResult);
-    renderTeamPage();
-
-    await user.click(screen.getByText("schedule"));
-
-    expect(screen.getByTestId("schedule-tab")).toHaveTextContent("134946");
-    expect(screen.queryByTestId("overview-tab")).not.toBeInTheDocument();
-  });
-
   it("only mounts one tab's component at a time", async () => {
     const user = userEvent.setup();
     stubTeamFetch(foundTeamResult);
@@ -154,6 +141,11 @@ describe("TeamPage", () => {
 
     expect(screen.getByTestId("roster-tab")).toBeInTheDocument();
     expect(screen.queryByTestId("overview-tab")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("schedule-tab")).not.toBeInTheDocument();
+  });
+
+  it("does not offer a schedule tab option at all", () => {
+    stubTeamFetch(foundTeamResult);
+    renderTeamPage();
+    expect(screen.queryByText("schedule")).not.toBeInTheDocument();
   });
 });

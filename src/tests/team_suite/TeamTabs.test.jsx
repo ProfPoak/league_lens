@@ -3,17 +3,23 @@ import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import TeamTabs from "../../components/team/TeamTabs";
 
-// TeamTabs is fully presentational — same shape as the accordion's toggle
-// button, just three-way instead of open/closed. No fetching, no domain
-// knowledge. Assumes buttons expose role="tab" with aria-selected, since
-// that's the correct ARIA pairing for the ARIA state pseudocode calls for.
+// TeamTabs drops from three tabs to two: schedule content now lives
+// inline in TeamOverviewTab (via TeamScheduleCard) rather than behind
+// its own tab, since the free-tier API only ever gives one upcoming
+// game and a short past-results list — not enough for a standalone
+// browsing view. TeamTabs itself is still fully presentational, no
+// fetching, no domain knowledge.
 
 describe("TeamTabs", () => {
-  it("renders a tab button for overview, roster, and schedule", () => {
+  it("renders a tab button for overview and roster only", () => {
     render(<TeamTabs activeTab="overview" onTabChange={() => {}} />);
     expect(screen.getByRole("tab", { name: /overview/i })).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: /roster/i })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: /schedule/i })).toBeInTheDocument();
+  });
+
+  it("does not render a schedule tab", () => {
+    render(<TeamTabs activeTab="overview" onTabChange={() => {}} />);
+    expect(screen.queryByRole("tab", { name: /schedule/i })).not.toBeInTheDocument();
   });
 
   it("marks only the active tab as aria-selected", () => {
@@ -25,10 +31,6 @@ describe("TeamTabs", () => {
     expect(screen.getByRole("tab", { name: /roster/i })).toHaveAttribute(
       "aria-selected",
       "true"
-    );
-    expect(screen.getByRole("tab", { name: /schedule/i })).toHaveAttribute(
-      "aria-selected",
-      "false"
     );
   });
 
@@ -50,18 +52,7 @@ describe("TeamTabs", () => {
     expect(onTabChange).toHaveBeenCalledWith("roster");
   });
 
-  it("calls onTabChange with 'schedule' when the Schedule tab is clicked", async () => {
-    const user = userEvent.setup();
-    const onTabChange = vi.fn();
-    render(<TeamTabs activeTab="overview" onTabChange={onTabChange} />);
-
-    await user.click(screen.getByRole("tab", { name: /schedule/i }));
-    expect(onTabChange).toHaveBeenCalledWith("schedule");
-  });
-
   it("still calls onTabChange when clicking the already-active tab", async () => {
-    // No "closing" behavior like the accordion — tabs aren't toggleable,
-    // clicking the current tab is a no-op re-selection at most.
     const user = userEvent.setup();
     const onTabChange = vi.fn();
     render(<TeamTabs activeTab="overview" onTabChange={onTabChange} />);

@@ -23,7 +23,7 @@ function renderWithRouter(ui) {
 const fullTeam = {
   idTeam: "134946",
   strTeam: "Kansas City Chiefs",
-  strTeamBadge: "https://example.com/chiefs-badge.png",
+  strBadge: "https://example.com/chiefs-badge.png",
   strLeague: "NFL",
   strStadium: "GEHA Field at Arrowhead Stadium",
   intStadiumCapacity: "76416",
@@ -39,7 +39,7 @@ describe("TeamOverviewTab", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("img")).toHaveAttribute(
       "src",
-      fullTeam.strTeamBadge
+      fullTeam.strBadge
     );
   });
 

@@ -1,12 +1,15 @@
 import { useSportsDbFetch } from "../../hooks/useSportsDbFetch"
 import { buildRosterUrl } from "../../api/endpoints"
+import { groupBy } from "../../utils/roster"
 import Spinner from "../common/Spinner"
 import EmptyState from "../common/EmptyState"
+import PlayerCard from "./PlayerCard"
 
 function TeamRosterTab({ teamId }) {
-    const result = useSportsDbFetch(() => buildRosterUrl(teamId), [teamId])
+    const result = useSportsDbFetch(() => buildRosterUrl(teamId), [teamId]);
 
-    const players = result?.data?.player ?? []
+    const players = result?.data?.player ?? [];
+    const grouped = groupBy(players, (p) => p.srPosition || "Other");
 
     if (result.isLoading) {
         return (
@@ -30,7 +33,12 @@ function TeamRosterTab({ teamId }) {
     return(
         <>
             <h3>Roster</h3>
-            {console.log(result)}
+            {players.map((p) => (
+                <PlayerCard 
+                key={p.idPlayer}
+                player={p}
+                />
+            ))}
         </>
     )
 }

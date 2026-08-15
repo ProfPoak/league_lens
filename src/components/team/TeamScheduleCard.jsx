@@ -9,9 +9,8 @@ function TeamScheduleCard({ teamId }) {
     const past = useSportsDbFetch(() => buildPastEventsUrl(teamId), [teamId])
 
     const nextEvent = upcoming?.data?.events?.[0] ?? null
-    const pastEvent = past?.data?.results ?? []
+    const lastEvent = past?.data?.results?.[0] ?? null
 
-    
     return(
         <section className="schedule-card">
             <h3>Next Game</h3>
@@ -25,7 +24,21 @@ function TeamScheduleCard({ teamId }) {
                 <EmptyState message="No upcoming game scheduled." />
             )}
             {nextEvent && (
-                <MatchRow />
+                <MatchRow event={nextEvent} teamId={teamId} mode="upcoming"/>
+            )}
+
+            <h3>Last Game</h3>
+            {past.isLoading && (
+                <Spinner />
+            )}
+            {past.status === "error" && (
+                <EmptyState message="Couldn't load last game." />
+            )}
+            {past.status === "success" && !lastEvent && (
+                <EmptyState message="No recent results." />
+            )}
+            {lastEvent && (
+                <MatchRow event={lastEvent} teamId={teamId} mode="past"/>
             )}
 
         </section>

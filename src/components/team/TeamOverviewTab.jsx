@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import Collapsible from "../common/Collapsible"
+import TeamScheduleCard from "./TeamScheduleCard"
 
-function TeamOverviewTab({ team }) {
-    const [descriptionOpen, setDescriptionOpen] = useState(false)
+function TeamOverviewTab({ team, teamId }) {
+    const [descriptionOpen, setDescriptionOpen] = useState(true)
     
     return(
         <>
@@ -29,7 +30,9 @@ function TeamOverviewTab({ team }) {
                         {team.strDescriptionEN}
                     </Collapsible>
                 </>
-            )}            
+            )}
+
+            <TeamScheduleCard teamId={teamId} />            
         </>
     )
 }

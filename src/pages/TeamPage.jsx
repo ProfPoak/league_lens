@@ -7,7 +7,7 @@ import EmptyState from '../components/common/EmptyState';
 import TeamTabs from '../components/team/TeamTabs';
 import TeamOverviewTab from '../components/team/TeamOverviewTab';
 import TeamRosterTab from '../components/team/TeamRosterTab';
-import TeamScheduleTab from '../components/team/TeamScheduleTab';
+import TeamScheduleTab from '../components/team/TeamScheduleCard';
 
 function TeamPage() {
     const { id } = useParams();
@@ -33,13 +33,10 @@ function TeamPage() {
             <TeamTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
             {activeTab === "overview" && (
-                <TeamOverviewTab team={team} />
+                <TeamOverviewTab team={team} teamId={id} />
             )}
             {activeTab === "roster" && (
                 <TeamRosterTab teamId={id} />
-            )}
-            {activeTab === "schedule" && (
-                <TeamScheduleTab teamId={id} />
             )}
         </>
     )

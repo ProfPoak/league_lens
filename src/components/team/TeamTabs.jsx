@@ -1,5 +1,5 @@
 function TeamTabs({ activeTab, onTabChange }) {
-    const tabs = ["overview", "roster", "schedule"]
+    const tabs = ["overview", "roster"]
     
     return (     
         <>

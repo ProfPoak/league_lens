@@ -1,7 +1,6 @@
 /* ---------------------------------------------------
-   League Lens — basic home page styling
-   Clear cards, sane sizing. Palette/typography can be
-   revisited once the rest of the app is built out.
+   League Lens — basic page styling
+   Clear cards, sane sizing.
 --------------------------------------------------- */
 
 :root {
@@ -25,6 +24,16 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- API notes ---------- */
+.api-item__note {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  background: var(--color-primary-soft);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin: 0 0 1rem;
 }
 
 /* ---------- Page shell ---------- */
@@ -100,15 +109,6 @@ body {
 
 .league-accordion-item__panel {
   padding: 1rem 1.25rem 1.25rem;
-}
-
-.league-accordion-item__note {
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
-  background: var(--color-primary-soft);
-  border-radius: 8px;
-  padding: 0.5rem 0.75rem;
-  margin: 0 0 1rem;
 }
 
 /* ---------- Collapsible ---------- */

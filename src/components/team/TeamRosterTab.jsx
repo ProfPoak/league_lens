@@ -36,6 +36,9 @@ function TeamRosterTab({ teamId }) {
     return(
         <div className="team-roster">
             <h3>Roster</h3>
+            <p className="api-item__note">
+              API free tier will only return the first 10 players of the team
+            </p>
             {sortedPositions.map(([position, groupPlayers]) => (
                 <div key={position}>
                     <h4>{position}</h4>

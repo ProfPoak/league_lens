@@ -31,15 +31,14 @@ function TeamRosterTab({ teamId }) {
 
 
     return(
-        <>
+        <div className="team-roster">
             <h3>Roster</h3>
-            {players.map((p) => (
-                <PlayerCard 
-                key={p.idPlayer}
-                player={p}
-                />
-            ))}
-        </>
+            <div className="team-roster__grid">
+                {players.map((p) => (
+                    <PlayerCard key={p.idPlayer} player={p} />
+                ))}
+            </div>
+        </div>
     )
 }
 

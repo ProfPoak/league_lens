@@ -7,12 +7,12 @@ function MatchRow ({ event, teamId, mode }) {
     const result = mode === "past" ? getMatchResult(event, teamId) : null
 
     return(
-        <div>
-            <span>{dateLabel}</span>
-            <span>{event.strHomeTeam} vs {event.strAwayTeam}</span>
+        <div className="match-row">
+            <span className="match-row__date">{dateLabel}</span>
+            <span className="match-row__teams">{event.strHomeTeam} vs {event.strAwayTeam}</span>
             {mode === "past" && (
                 <>
-                    <span>{event.intHomeScore}-{event.intAwayScore}</span>
+                    <span className="match-row__score">{event.intHomeScore}-{event.intAwayScore}</span>
                     <Badge result={result}/>
                 </>
             )}

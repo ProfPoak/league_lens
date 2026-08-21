@@ -29,7 +29,7 @@ function TeamPage() {
     };
 
     return (
-        <>
+        <div className="team-page">
             <TeamTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
             {activeTab === "overview" && (
@@ -38,7 +38,7 @@ function TeamPage() {
             {activeTab === "roster" && (
                 <TeamRosterTab teamId={id} />
             )}
-        </>
+        </div>
     )
 }
 

@@ -38,7 +38,7 @@ import { useSportsDbFetch } from '../../hooks/useSportsDbFetch';
       <Collapsible id={panelId} isOpen={isOpen}>
         {isOpen && (
           <div className="league-accordion-item__panel">
-            <p className="league-accordion-item__note">
+            <p className="api-item__note">
               API free tier will only return the first 10 teams of the league
             </p>
             

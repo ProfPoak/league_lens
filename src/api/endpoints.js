@@ -12,6 +12,7 @@ export const buildTeamLookupUrl = (teamId) =>
 export const buildRosterUrl = (teamId) =>
   `${BASE_URL}/lookup_all_players.php?id=${teamId}`;
 
+// free key only returns 1 entry for the next home event
 export const buildUpcomingEventsUrl = (teamId) =>
   `${BASE_URL}/eventsnext.php?id=${teamId}`;
 

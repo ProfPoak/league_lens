@@ -1,22 +1,43 @@
-import { useParams } from "react-router-dom"
-import { buildTeamLookupUrl } from "../api/endpoints"
-import { useSportsDbFetch } from "../hooks/useSportsDbFetch"
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { buildTeamLookupUrl } from "../api/endpoints";
+import { useSportsDbFetch } from "../hooks/useSportsDbFetch";
+import Spinner from '../components/common/Spinner';
+import EmptyState from '../components/common/EmptyState';
+import TeamTabs from '../components/team/TeamTabs';
+import TeamOverviewTab from '../components/team/TeamOverviewTab';
+import TeamRosterTab from '../components/team/TeamRosterTab';
 
 function TeamPage() {
-    const { id } = useParams()
-    const { data, status, error } = useSportsDbFetch(() => buildTeamLookupUrl(id), [id])
+    const { id } = useParams();
+    const teamResult = useSportsDbFetch(() => buildTeamLookupUrl(id), [id]);
 
-    if (status === "loading" || status === "idle") return <p>Loading...</p>
-    if (status === "error") return <p>Couldn't load team.</p>
+    const [activeTab, setActiveTab] = useState("overview");
 
-    const team = data?.teams?.[0]
+    if (teamResult.status === "loading" || teamResult.status === "idle") {
+        return <Spinner />
+    };
+    if (teamResult.status === "error") {
+        return <EmptyState message="Couldn't load team." />
+    };
 
-    if (!team) return <p>Team not found.</p>
+    const team = teamResult.data?.teams?.[0];
+
+    if (!team) {
+        return <EmptyState message="Team not found."/>
+    };
 
     return (
-        <>
-            <h1>{team.strTeam}</h1>
-        </>
+        <div className="team-page">
+            <TeamTabs activeTab={activeTab} onTabChange={setActiveTab} />
+
+            {activeTab === "overview" && (
+                <TeamOverviewTab team={team} teamId={id} />
+            )}
+            {activeTab === "roster" && (
+                <TeamRosterTab teamId={id} />
+            )}
+        </div>
     )
 }
 

@@ -9,7 +9,7 @@ function TeamRosterTab({ teamId }) {
     const result = useSportsDbFetch(() => buildRosterUrl(teamId), [teamId]);
 
     const players = result?.data?.player ?? [];
-    const grouped = groupBy(players, (p) => p.srPosition || "Other");
+    const grouped = groupBy(players, (p) => p.strPosition || "Other");
 
     if (result.isLoading) {
         return (

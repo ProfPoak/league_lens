@@ -8,10 +8,10 @@ export function getMatchResult(event, teamId) {
         return null;
     }
 
-    if (teamScore > oppScore) {
+    if (Number(teamScore) > Number(oppScore)) {
         return "W";
     }
-    if (teamScore < oppScore) {
+    if (Number(teamScore) < Number(oppScore)) {
         return "L";
     }
     return "D";

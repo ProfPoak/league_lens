@@ -2,6 +2,7 @@ import { useSportsDbFetch } from "../../hooks/useSportsDbFetch"
 import { buildPlayerStatsUrl } from "../../api/endpoints"
 import { pivotPlayerStats } from "../../utils/stats"
 import Spinner from "../common/Spinner"
+import EmptyState from "../common/EmptyState"
 
 function PlayerStats({ playerId }) {
     const result = useSportsDbFetch(() => buildPlayerStatsUrl(playerId), [playerId])
@@ -11,12 +12,12 @@ function PlayerStats({ playerId }) {
         return <Spinner />
     }
 
-    if(result.status !== "success") {
-        return null
+    if(result.status === "error") {
+        return <EmptyState message="Couldn't load stats."/>
     }
     
     if(stats.length === 0) {
-        return null
+        return <EmptyState message="No stats available for this player."/>
     }
 
     const rows = pivotPlayerStats(stats)

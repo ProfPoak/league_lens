@@ -12,6 +12,10 @@ vi.mock("../../components/common/Spinner", () => ({
   default: () => <div data-testid="spinner" />,
 }));
 
+vi.mock("../../components/common/EmptyState", () => ({
+  default: ({ message }) => <div data-testid="empty-state">{message}</div>,
+}));
+
 const idleResult = { data: null, status: "idle", error: null, isLoading: false };
 
 function stubFetch(result) {
@@ -65,27 +69,31 @@ describe("PlayerStats", () => {
     expect(screen.getByTestId("spinner")).toBeInTheDocument();
   });
 
-  it("renders nothing when the fetch errors (silent, no EmptyState)", () => {
+  // CHANGED: was "renders nothing when the fetch errors (silent, no EmptyState)"
+  it("shows an error message when the fetch fails", () => {
     stubFetch({ ...idleResult, status: "error", error: new Error("boom") });
-    const { container } = render(<PlayerStats playerId="34145938" />);
-    expect(container).toBeEmptyDOMElement();
+    render(<PlayerStats playerId="34145938" />);
+    expect(screen.getByTestId("empty-state")).toHaveTextContent(
+      "Couldn't load stats."
+    );
   });
 
-  it("renders nothing on success when the stats payload is null", () => {
+  // CHANGED: was "renders nothing on success when the stats payload is null"
+  it("shows a 'no stats' message on success when the stats payload is null", () => {
     stubFetch({ ...idleResult, status: "success", data: { playerstats: null } });
-    const { container } = render(<PlayerStats playerId="34145938" />);
-    expect(container).toBeEmptyDOMElement();
+    render(<PlayerStats playerId="34145938" />);
+    expect(screen.getByTestId("empty-state")).toHaveTextContent(
+      "No stats available for this player."
+    );
   });
 
-  it("renders nothing on success when the stats array is empty", () => {
+  // CHANGED: was "renders nothing on success when the stats array is empty"
+  it("shows a 'no stats' message on success when the stats array is empty", () => {
     stubFetch({ ...idleResult, status: "success", data: { playerstats: [] } });
-    const { container } = render(<PlayerStats playerId="34145938" />);
-    expect(container).toBeEmptyDOMElement();
-  });
-
-  it("renders nothing while idle (no request made yet)", () => {
-    const { container } = render(<PlayerStats playerId="34145938" />);
-    expect(container).toBeEmptyDOMElement();
+    render(<PlayerStats playerId="34145938" />);
+    expect(screen.getByTestId("empty-state")).toHaveTextContent(
+      "No stats available for this player."
+    );
   });
 
   it("renders a Stats heading when stats are present", () => {

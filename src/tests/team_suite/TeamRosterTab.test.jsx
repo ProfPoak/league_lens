@@ -3,21 +3,6 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import TeamRosterTab from "../../components/team/TeamRosterTab";
 import { useSportsDbFetch } from "../../hooks/useSportsDbFetch";
 
-// TeamRosterTab fetches its own data (lookup_all_players.php) rather than
-// receiving it from TeamPage. Per pseudocode, this component only ever
-// mounts while its tab is active, so — unlike LeagueAccordionItem's
-// `isOpen ? url : null` gating — no extra open/closed check is needed here.
-//
-// SCOPE NOTE: position-based grouping (Goalkeepers/Defenders/etc., with a
-// per-sport bucket map) is an open design question in
-// team-route-pseudocode.md — the exact field name from
-// lookup_all_players.php and the bucket map itself haven't been confirmed
-// against a real API response yet. These tests cover fetch gating and
-// loading/error/empty/render states only; grouping-by-position tests
-// should be added once that field/bucket mapping is settled.
-//
-// ASSUMPTION: response shape is `{ player: [...] }` per the pseudocode's
-// best guess — update if the real response uses a different key.
 
 vi.mock("../../hooks/useSportsDbFetch", () => ({
   useSportsDbFetch: vi.fn(),

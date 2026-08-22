@@ -5,10 +5,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import TeamPage from "../../pages/TeamPage";
 import { useSportsDbFetch } from "../../hooks/useSportsDbFetch";
 
-// TeamPage now only switches between two tabs: "overview" and "roster".
-// TeamScheduleTab no longer exists — schedule content moved inline into
-// TeamOverviewTab via TeamScheduleCard, so TeamOverviewTab now also
-// receives a `teamId` prop alongside `team`.
+// TeamPage only switches between two tabs: "overview" and "roster".
 
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");

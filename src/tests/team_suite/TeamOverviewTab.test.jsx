@@ -8,12 +8,6 @@ import TeamOverviewTab from "../../components/team/TeamOverviewTab";
 // passed down, still fetched once by TeamPage). It now also forwards
 // `teamId` straight through to TeamScheduleCard, which owns its own
 // fetches — TeamOverviewTab itself still fetches nothing.
-//
-// CHANGED from the original suite:
-// - description now defaults OPEN (was closed) — the tab felt too sparse
-//   otherwise, since it's the fallback content before Roster loads.
-// - TeamScheduleCard renders unconditionally under the description,
-//   regardless of whether strDescriptionEN is present.
 
 vi.mock("../../components/common/Collapsible", () => ({
   default: ({ isOpen, children }) => (

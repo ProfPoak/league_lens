@@ -69,7 +69,6 @@ describe("PlayerStats", () => {
     expect(screen.getByTestId("spinner")).toBeInTheDocument();
   });
 
-  // CHANGED: was "renders nothing when the fetch errors (silent, no EmptyState)"
   it("shows an error message when the fetch fails", () => {
     stubFetch({ ...idleResult, status: "error", error: new Error("boom") });
     render(<PlayerStats playerId="34145938" />);
@@ -78,7 +77,6 @@ describe("PlayerStats", () => {
     );
   });
 
-  // CHANGED: was "renders nothing on success when the stats payload is null"
   it("shows a 'no stats' message on success when the stats payload is null", () => {
     stubFetch({ ...idleResult, status: "success", data: { playerstats: null } });
     render(<PlayerStats playerId="34145938" />);
@@ -87,7 +85,6 @@ describe("PlayerStats", () => {
     );
   });
 
-  // CHANGED: was "renders nothing on success when the stats array is empty"
   it("shows a 'no stats' message on success when the stats array is empty", () => {
     stubFetch({ ...idleResult, status: "success", data: { playerstats: [] } });
     render(<PlayerStats playerId="34145938" />);

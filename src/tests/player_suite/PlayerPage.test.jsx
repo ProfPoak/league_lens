@@ -4,13 +4,8 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import PlayerPage from "../../pages/PlayerPage";
 import { useSportsDbFetch } from "../../hooks/useSportsDbFetch";
 
-// PlayerPage owns the single player lookup (lookupplayer.php), same shape
-// as TeamPage: idle/loading -> spinner, error -> empty state, empty result
-// -> not-found empty state, otherwise render children with the fetched
-// player passed straight down (no re-fetching in children). Per pseudocode
-// §5.1, the response key is `players` (plural) — the OPPOSITE of
-// lookup_all_players.php's singular `player`, easy to transpose.
-//
+// PlayerPage owns the single player lookup (lookupplayer.php) 
+// render children with the fetched player passed straight down (no re-fetching in children).
 // All three children are mocked so these tests only exercise PlayerPage's
 // own fetch-status/composition logic, not the children's internals.
 

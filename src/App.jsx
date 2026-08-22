@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import TeamPage from './pages/TeamPage'
 import PlayerPage from './pages/PlayerPage'
-import './App.css'
+import './styles/App.css'
 
 function App() {
 

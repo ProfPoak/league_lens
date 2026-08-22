@@ -491,3 +491,195 @@ body {
   background: #f1f5f9;
   color: #475569;
 }
+
+/* ---------------------------------------------------
+   Player route
+--------------------------------------------------- */
+
+.player-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ---------- Header ---------- */
+
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.player-header__photo {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.player-header__info {
+  min-width: 0;
+}
+
+.player-header__name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.player-header__team {
+  display: inline-block;
+  font-size: 0.9375rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.player-header__team:hover {
+  text-decoration: underline;
+}
+
+.player-header__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.player-header__badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-primary-soft);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+}
+
+.player-header__badge--number {
+  color: var(--color-primary);
+}
+
+/* ---------- Bio ---------- */
+
+.player-bio {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.5rem;
+}
+
+.player-bio__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  margin-bottom: 0.75rem;
+}
+
+.player-bio__field {
+  margin: 0;
+}
+
+.player-bio__description {
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.75rem;
+}
+
+.player-bio__toggle {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--color-text);
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.player-bio__description p {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ---------- Stats ---------- */
+
+.player-stats {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.5rem;
+}
+
+.player-stats__heading {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.75rem;
+}
+
+.player-stats__table-wrap {
+  overflow-x: auto;
+}
+
+.player-stats__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.player-stats__table th,
+.player-stats__table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.player-stats__table thead th {
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.player-stats__table tbody tr:nth-child(even) {
+  background: var(--color-bg);
+}
+
+.player-stats__table tbody td {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.player-stats__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 480px) {
+  .player-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .player-header__meta {
+    justify-content: center;
+  }
+}

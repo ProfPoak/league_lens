@@ -1,4 +1,5 @@
 import LeagueAccordion from '../components/home/LeagueAccordion'
+import "../styles/HomePage.css"
 
 function HomePage() {
 

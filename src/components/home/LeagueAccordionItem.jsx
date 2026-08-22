@@ -14,13 +14,11 @@ import { useSportsDbFetch } from '../../hooks/useSportsDbFetch';
     const panelId = `league-panel-${league.id}`;
 
     const teamsResult = useSportsDbFetch(
-        () => (isOpen ? buildTeamsByLeagueUrl(league.apiName) : null),
-        [isOpen, league.apiName]
+        () => (isOpen ? buildTeamsByLeagueUrl(league.apiName) : null)
     );
 
     const scheduleResult = useSportsDbFetch(
-        () => (isOpen ? buildLeagueScheduleUrl(league.id) : null),
-        [isOpen, league.id]
+        () => (isOpen ? buildLeagueScheduleUrl(league.id) : null)
     );
 
     const teams = teamsResult.data?.teams ?? [];

@@ -5,8 +5,8 @@ import Spinner from "../common/Spinner"
 import EmptyState from "../common/EmptyState"
 
 function TeamScheduleCard({ teamId }) {
-    const upcoming = useSportsDbFetch(() => buildUpcomingEventsUrl(teamId), [teamId])
-    const past = useSportsDbFetch(() => buildPastEventsUrl(teamId), [teamId])
+    const upcoming = useSportsDbFetch(() => buildUpcomingEventsUrl(teamId))
+    const past = useSportsDbFetch(() => buildPastEventsUrl(teamId))
 
     const nextEvent = upcoming?.data?.events?.[0] ?? null
     const lastEvent = past?.data?.results?.[0] ?? null

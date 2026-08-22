@@ -5,7 +5,7 @@ import Spinner from "../common/Spinner"
 import EmptyState from "../common/EmptyState"
 
 function PlayerStats({ playerId }) {
-    const result = useSportsDbFetch(() => buildPlayerStatsUrl(playerId), [playerId])
+    const result = useSportsDbFetch(() => buildPlayerStatsUrl(playerId))
     const stats = result.data?.playerstats ?? []
     
     if(result.isLoading) {

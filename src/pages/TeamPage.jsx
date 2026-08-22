@@ -10,7 +10,7 @@ import TeamRosterTab from '../components/team/TeamRosterTab';
 
 function TeamPage() {
     const { id } = useParams();
-    const teamResult = useSportsDbFetch(() => buildTeamLookupUrl(id), [id]);
+    const teamResult = useSportsDbFetch(() => buildTeamLookupUrl(id));
 
     const [activeTab, setActiveTab] = useState("overview");
 

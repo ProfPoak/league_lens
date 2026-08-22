@@ -35,7 +35,7 @@ function PlayerStats({ playerId }) {
                 </thead>
                 <tbody>
                     {rows.map(row => (
-                        <tr key={`${row.season}|${row.league}`}>
+                        <tr key={`${row.season}|${row.league}`} data-testid="stat-row">
                             <td>{row.season}</td>
                             <td>{row.league}</td>
                             {columns.map(col => (

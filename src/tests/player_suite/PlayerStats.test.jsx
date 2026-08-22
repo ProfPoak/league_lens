@@ -3,20 +3,6 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import PlayerStats from "../../components/player/PlayerStats";
 import { useSportsDbFetch } from "../../hooks/useSportsDbFetch";
 
-// PlayerStats is a self-contained fetcher, but it differs from every other
-// fetcher in the app (TeamScheduleCard, TeamRosterTab): it's a bonus
-// section with inconsistent free-tier coverage (design spec §2, pseudocode
-// §5). Per pseudocode:
-//   - loading  -> Spinner
-//   - error    -> renders nothing (silent, no EmptyState)
-//   - success + empty stats array -> renders nothing (silent)
-//   - success + data -> renders a "Stats" heading + one row per stat
-//
-// §5.2 (playerstats field names) is still unconfirmed, so the
-// success-with-data case only asserts COUNT/gating, not field content.
-// CONVENTION assumed for this test: each rendered stat entry carries
-// data-testid="stat-row" — adjust here if the implementation lands on a
-// different marker once field names are confirmed.
 
 vi.mock("../../hooks/useSportsDbFetch", () => ({
   useSportsDbFetch: vi.fn(),
@@ -35,6 +21,30 @@ function stubFetch(result) {
     return result;
   });
 }
+
+const mahomes2023Passing = {
+  strSeason: "2023",
+  strLeague: "NFL",
+  strTeam: "Kansas City Chiefs",
+  strStatistic: "Passing Yards",
+  strValue: "4183",
+};
+
+const mahomes2023TD = {
+  strSeason: "2023",
+  strLeague: "NFL",
+  strTeam: "Kansas City Chiefs",
+  strStatistic: "Touchdowns",
+  strValue: "27",
+};
+
+const mahomes2022Passing = {
+  strSeason: "2022",
+  strLeague: "NFL",
+  strTeam: "Kansas City Chiefs",
+  strStatistic: "Passing Yards",
+  strValue: "5250",
+};
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -78,18 +88,90 @@ describe("PlayerStats", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("renders a Stats heading and one row per stat entry on success", () => {
+  it("renders a Stats heading when stats are present", () => {
     stubFetch({
       ...idleResult,
       status: "success",
-      data: {
-        playerstats: [{ idPlayer: "1" }, { idPlayer: "1" }, { idPlayer: "1" }],
-      },
+      data: { playerstats: [mahomes2023Passing] },
+    });
+    render(<PlayerStats playerId="34145938" />);
+    expect(screen.getByText("Stats")).toBeInTheDocument();
+  });
+
+  it("groups multiple stat entries from the same season+league into a single row", () => {
+    stubFetch({
+      ...idleResult,
+      status: "success",
+      data: { playerstats: [mahomes2023Passing, mahomes2023TD] },
     });
     render(<PlayerStats playerId="34145938" />);
 
-    expect(screen.getByText("Stats")).toBeInTheDocument();
-    expect(screen.getAllByTestId("stat-row")).toHaveLength(3);
+    expect(screen.getAllByTestId("stat-row")).toHaveLength(1);
+  });
+
+  it("renders one row per distinct season+league", () => {
+    stubFetch({
+      ...idleResult,
+      status: "success",
+      data: { playerstats: [mahomes2023Passing, mahomes2022Passing] },
+    });
+    render(<PlayerStats playerId="34145938" />);
+
+    expect(screen.getAllByTestId("stat-row")).toHaveLength(2);
+  });
+
+  it("renders season and league values in each row", () => {
+    stubFetch({
+      ...idleResult,
+      status: "success",
+      data: { playerstats: [mahomes2023Passing] },
+    });
+    render(<PlayerStats playerId="34145938" />);
+
+    expect(screen.getByText("2023")).toBeInTheDocument();
+    expect(screen.getByText("NFL")).toBeInTheDocument();
+  });
+
+  it("renders a column header per distinct strStatistic and the matching value", () => {
+    stubFetch({
+      ...idleResult,
+      status: "success",
+      data: { playerstats: [mahomes2023Passing, mahomes2023TD] },
+    });
+    render(<PlayerStats playerId="34145938" />);
+
+    expect(screen.getByText("Passing Yards")).toBeInTheDocument();
+    expect(screen.getByText("Touchdowns")).toBeInTheDocument();
+    expect(screen.getByText("4183")).toBeInTheDocument();
+    expect(screen.getByText("27")).toBeInTheDocument();
+  });
+
+  it("renders an em dash for a stat column a given season/league didn't report", () => {
+    stubFetch({
+      ...idleResult,
+      status: "success",
+      // 2023 has Touchdowns, 2022 doesn't -> 2022's row should show a
+      // placeholder in that column rather than an empty cell or a crash
+      data: { playerstats: [mahomes2023TD, mahomes2022Passing] },
+    });
+    render(<PlayerStats playerId="34145938" />);
+
+    const rows = screen.getAllByTestId("stat-row");
+    expect(rows).toHaveLength(2);
+    expect(screen.getAllByText("—")).toHaveLength(2);
+  });
+
+  it("orders rows most-recent-season first", () => {
+    stubFetch({
+      ...idleResult,
+      status: "success",
+      data: { playerstats: [mahomes2022Passing, mahomes2023Passing] },
+    });
+    render(<PlayerStats playerId="34145938" />);
+
+    const rows = screen.getAllByTestId("stat-row");
+    expect(rows[0]).toHaveTextContent("2023");
+    expect(rows[1]).toHaveTextContent("2022");
   });
 
   it("does not crash when the fetch has not resolved yet", () => {

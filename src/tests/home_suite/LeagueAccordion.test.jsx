@@ -6,7 +6,7 @@ import { LEAGUES } from "../../utils/leagues";
 
 // LeagueAccordion owns exactly one piece of state: which league id is
 // active. It should NOT know about fetching, filtering, or team data.
-// We mock LeagueAccordionItem so these tests only exercise the parent's
+// LeagueAccordionItem is mocked so these tests only exercise the parent's
 // single-expand logic, not the child's internals.
 
 vi.mock("../../components/home/LeagueAccordionItem", () => ({

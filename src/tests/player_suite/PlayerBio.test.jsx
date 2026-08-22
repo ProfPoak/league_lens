@@ -4,9 +4,9 @@ import { describe, it, expect, vi } from "vitest";
 import PlayerBio from "../../components/player/PlayerBio";
 
 // PlayerBio is presentational. Every bio field is its own independent
-// guard (per pseudocode §4) — height/weight render together as one line
+// guard — height/weight render together as one line
 // gated on "either present", everything else is its own field. The
-// description toggle defaults OPEN, matching TeamOverviewTab (§5.3).
+// description toggle defaults OPEN.
 
 vi.mock("../../components/common/Collapsible", () => ({
   default: ({ isOpen, children }) => (

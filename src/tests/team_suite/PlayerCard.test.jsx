@@ -3,9 +3,8 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, it, expect } from "vitest";
 import PlayerCard from "../../components/team/PlayerCard";
 
-// PlayerCard is presentational, same empty-field-hides rule used across
-// the app (Team Overview, Player Bio): missing optional fields are simply
-// not rendered, never shown as "N/A".
+// PlayerCard is presentational 
+// missing optional fields are simply not rendered.
 
 function renderWithRouter(ui) {
   return render(<MemoryRouter>{ui}</MemoryRouter>);

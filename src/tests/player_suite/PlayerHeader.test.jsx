@@ -4,10 +4,9 @@ import { describe, it, expect } from "vitest";
 import PlayerHeader from "../../components/player/PlayerHeader";
 
 // PlayerHeader is purely presentational — same "each optional field is its
-// own independent guard, nothing ever renders as N/A" rule used across the
-// app (PlayerCard, TeamOverviewTab). Per pseudocode §3: image prefers
-// strCutout, falls back to strThumb, hidden if both are missing; team link
-// requires BOTH strTeam and idTeam.
+// own independent guard, nothing ever renders as N/A" 
+// image prefers strCutout, falls back to strThumb, hidden if both are missing; 
+// team link requires BOTH strTeam and idTeam.
 
 function renderWithRouter(ui) {
   return render(<MemoryRouter>{ui}</MemoryRouter>);

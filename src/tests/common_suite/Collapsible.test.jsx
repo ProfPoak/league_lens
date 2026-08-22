@@ -2,12 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import Collapsible from "../../components/common/Collapsible";
 
-// Contract under test:
-// - isOpen is the only thing that controls visibility
-// - children are ALWAYS in the DOM (mounted for animation), never
-//   conditionally rendered by Collapsible itself
-// - Collapsible has no state, no toggle, no domain knowledge
-
 describe("Collapsible", () => {
   it("renders children in the DOM when isOpen is true", () => {
     render(

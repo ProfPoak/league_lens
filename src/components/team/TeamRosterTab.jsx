@@ -15,21 +15,15 @@ function TeamRosterTab({ teamId }) {
         );
 
     if (result.isLoading) {
-        return (
-        <Spinner />
-        )
+        return <Spinner />
     }
 
     if (result.status === "error") {
-        return (
-            <EmptyState message="Couldn't load roster."/>
-        )
+        return <EmptyState message="Couldn't load roster."/>
     }
 
     if (players.length === 0) {
-        return (
-        <EmptyState message="No roster data available."/>
-        )
+        return <EmptyState message="No roster data available."/>
     }
 
 

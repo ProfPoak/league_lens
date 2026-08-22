@@ -13,7 +13,7 @@ function TeamScheduleCard({ teamId }) {
 
     return(
         <section className="schedule-card">
-            <h3>Next Game</h3>
+            <h3>Next Home Game</h3>
             {upcoming.isLoading && (
                 <Spinner />
             )}

@@ -59,7 +59,7 @@ describe("TeamScheduleCard", () => {
 
   it("renders both section headings", () => {
     render(<TeamScheduleCard teamId="134946" />);
-    expect(screen.getByText("Next Game")).toBeInTheDocument();
+    expect(screen.getByText("Next Home Game")).toBeInTheDocument();
     expect(screen.getByText("Last Game")).toBeInTheDocument();
   });
 

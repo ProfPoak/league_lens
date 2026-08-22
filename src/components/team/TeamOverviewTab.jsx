@@ -20,7 +20,7 @@ function TeamOverviewTab({ team, teamId }) {
 
             <div className="team-overview__meta">
                 {team?.strStadium && (
-                    <p>{team.strStadium} {team.intStadiumCapacity && `· Capacity ${team.intStadiumCapacity}`}</p>
+                    <p>{team.strStadium} {team.intStadiumCapacity && `· Capacity ${Number(team.intStadiumCapacity).toLocaleString('en-US')}`}</p>
                 )}
                 {team?.intFormedYear && (
                     <p>Founded {team.intFormedYear}</p>

@@ -1,18 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 
-export function useSportsDbFetch(buildUrl, deps) {
+export function useSportsDbFetch(buildUrl) {
     const [data, setData] = useState(null);
     const [status, setStatus] = useState("idle");
     const [error, setError] = useState(null);
     const cacheRef = useRef(new Map());
 
+    const url = buildUrl(); 
+
     useEffect(() => {
-        const url = buildUrl();
-        if (!url) {
-            setStatus("idle");
-            setData(null);
-            return;
-        }
+        if (!url) return; 
         
         // memory cache to avoid re-fetching information when navigating tabs
         if (cacheRef.current.has(url)) {
@@ -46,7 +43,15 @@ export function useSportsDbFetch(buildUrl, deps) {
         return () => {
             cancelled = true;
         };
-    }, deps);
+    }, [url]);
 
-    return { data, status, error, isLoading: status === "loading" };
+    const currentStatus = !url ? "idle" : status;
+    const currentData = !url ? null : data;
+
+    return { 
+        data: currentData, 
+        status: currentStatus, 
+        error, 
+        isLoading: currentStatus === "loading" 
+    };
 }

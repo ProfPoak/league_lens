@@ -32,11 +32,11 @@ function PlayerPage() {
     }
     
     return(
-        <>
+        <div className="player-page">
             <PlayerHeader player={player} />
             <PlayerBio player={player} />
             <PlayerStats playerId={id} />
-        </>
+        </div>
     )
 }
 

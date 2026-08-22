@@ -6,32 +6,37 @@ function PlayerBio({ player }) {
 
     return(
         <div className="player-bio">
-            {player.dateBorn && (
-                <p>Born {player.dateBorn}</p>
-            )}
+            <div className="player-bio__meta">
+                {player.dateBorn && (
+                    <p className="player-bio__field">Born {player.dateBorn}</p>
+                )}
 
-            {player.strBirthLocation && (
-                <p>{player.strBirthLocation}</p>
-            )}
+                {player.strBirthLocation && (
+                    <p className="player-bio__field">{player.strBirthLocation}</p>
+                )}
 
-            {player.strNationality && (
-                <p>{player.strNationality}</p>
-            )}
+                {player.strNationality && (
+                    <p className="player-bio__field">{player.strNationality}</p>
+                )}
 
-            {(player.strHeight || player.strWeight) && (
-                <p>{player.strHeight} {player.strWeight}</p>
-            )}
+                {(player.strHeight || player.strWeight) && (
+                    <p className="player-bio__field">{player.strHeight} {player.strWeight}</p>
+                )}
+            </div>
 
             {player.strDescriptionEN && (
-                <>
-                    <button onClick={() => setDescriptionOpen(prev => !prev)}>{descriptionOpen ? "Hide" : "Show"} description</button>
+                <div className="player-bio__description">
+                    <button className="player-bio__toggle" onClick={() => setDescriptionOpen(prev => !prev)}>
+                        {descriptionOpen ? "Hide" : "Show"} description
+                    </button>
                     <Collapsible isOpen={descriptionOpen}>
                         <p>{player.strDescriptionEN}</p>
                     </Collapsible>
-                </>
+                </div>
             )}
         </div>
     )
 }
+
 
 export default PlayerBio

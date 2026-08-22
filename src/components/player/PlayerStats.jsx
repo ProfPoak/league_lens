@@ -23,29 +23,31 @@ function PlayerStats({ playerId }) {
     const columns = [...new Set(rows.flatMap(r => Object.keys(r.stats)))]
 
     return(
-        <>
-            <h3>Stats</h3>
-            <table className="player-stats__table">
-                <thead>
-                    <tr>
-                        <th>Season</th>
-                        <th>League</th>
-                        {columns.map(col => <th key={col}>{col}</th>)}
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows.map(row => (
-                        <tr key={`${row.season}|${row.league}`} data-testid="stat-row">
-                            <td>{row.season}</td>
-                            <td>{row.league}</td>
-                            {columns.map(col => (
-                                <td key={col}>{row.stats[col] ?? "—"}</td>
-                            ))}
+        <section className="player-stats">
+            <h3 className="player-stats__heading">Stats</h3>
+            <div className="player-stats__table-wrap">
+                <table className="player-stats__table">
+                    <thead>
+                        <tr>
+                            <th>Season</th>
+                            <th>League</th>
+                            {columns.map(col => <th key={col}>{col}</th>)}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </>
+                    </thead>
+                    <tbody>
+                        {rows.map(row => (
+                            <tr key={`${row.season}|${row.league}`} data-testid="stat-row">
+                                <td>{row.season}</td>
+                                <td>{row.league}</td>
+                                {columns.map(col => (
+                                    <td key={col}>{row.stats[col] ?? "—"}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
     )
 }
 

@@ -113,12 +113,6 @@ describe("LeagueAccordionItem", () => {
     });
   });
 
-  it("does not render panel content while closed", () => {
-    render(<LeagueAccordionItem league={league} isOpen={false} onToggle={() => {}} />);
-    expect(screen.queryByTestId("filter-input")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("team-item")).not.toBeInTheDocument();
-  });
-
   it("requests teams for the league's apiName and schedule for the league's id when open", () => {
     render(<LeagueAccordionItem league={league} isOpen={true} onToggle={() => {}} />);
 

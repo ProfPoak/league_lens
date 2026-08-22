@@ -10,26 +10,21 @@ function TeamRosterTab({ teamId }) {
 
     const players = result?.data?.player ?? [];
     const grouped = groupBy(players, (p) => p.strPosition || "Other");
+    //sorting positions alphabetically
     const sortedPositions = Object.entries(grouped).sort((a, b) => 
         a[0].localeCompare(b[0])
         );
 
     if (result.isLoading) {
-        return (
-        <Spinner />
-        )
+        return <Spinner />
     }
 
     if (result.status === "error") {
-        return (
-            <EmptyState message="Couldn't load roster."/>
-        )
+        return <EmptyState message="Couldn't load roster."/>
     }
 
     if (players.length === 0) {
-        return (
-        <EmptyState message="No roster data available."/>
-        )
+        return <EmptyState message="No roster data available."/>
     }
 
 

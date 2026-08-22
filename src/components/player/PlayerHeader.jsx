@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 function PlayerHeader({ player }) {
     
     return(
+        //checks two image sources and defaults to back up if first is not available. Does not display image if it is not available.
         <div className="player-header">
             {(player.strCutout || player.strThumb) && (
                 <img className="player-header__photo" src={player.strCutout || player.strThumb} alt={`${player.strPlayer}`} />

@@ -7,6 +7,7 @@ import EmptyState from '../components/common/EmptyState';
 import TeamTabs from '../components/team/TeamTabs';
 import TeamOverviewTab from '../components/team/TeamOverviewTab';
 import TeamRosterTab from '../components/team/TeamRosterTab';
+import "../styles/TeamPage.css"
 
 function TeamPage() {
     const { id } = useParams();

@@ -6,6 +6,7 @@ import EmptyState from "../components/common/EmptyState"
 import PlayerHeader from "../components/player/PlayerHeader"
 import PlayerBio from "../components/player/PlayerBio"
 import PlayerStats from "../components/player/PlayerStats"
+import "../styles/PlayerPage.css"
 
 function PlayerPage() {
     const { id } = useParams()

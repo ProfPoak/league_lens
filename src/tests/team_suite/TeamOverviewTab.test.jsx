@@ -57,7 +57,7 @@ describe("TeamOverviewTab", () => {
   it("renders stadium name and capacity when present", () => {
     renderWithRouter(<TeamOverviewTab team={fullTeam} teamId="134946" />);
     expect(screen.getByText(/GEHA Field at Arrowhead Stadium/)).toBeInTheDocument();
-    expect(screen.getByText(/76416/)).toBeInTheDocument();
+    expect(screen.getByText(/76,416/)).toBeInTheDocument();
   });
 
   it("does not render stadium info when strStadium is missing", () => {

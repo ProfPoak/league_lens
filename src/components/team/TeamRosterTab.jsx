@@ -10,6 +10,7 @@ function TeamRosterTab({ teamId }) {
 
     const players = result?.data?.player ?? [];
     const grouped = groupBy(players, (p) => p.strPosition || "Other");
+    //sorting positions alphabetically
     const sortedPositions = Object.entries(grouped).sort((a, b) => 
         a[0].localeCompare(b[0])
         );

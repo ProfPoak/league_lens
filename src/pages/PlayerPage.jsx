@@ -9,7 +9,7 @@ import PlayerStats from "../components/player/PlayerStats"
 
 function PlayerPage() {
     const { id } = useParams()
-    const result = useSportsDbFetch(() => buildPlayerLookupUrl(id), [id])
+    const result = useSportsDbFetch(() => buildPlayerLookupUrl(id))
 
     if(result.status === "idle" || result.status === "loading") {
         return (

@@ -6,7 +6,7 @@ import EmptyState from "../common/EmptyState"
 import PlayerCard from "./PlayerCard"
 
 function TeamRosterTab({ teamId }) {
-    const result = useSportsDbFetch(() => buildRosterUrl(teamId), [teamId]);
+    const result = useSportsDbFetch(() => buildRosterUrl(teamId));
 
     const players = result?.data?.player ?? [];
     const grouped = groupBy(players, (p) => p.strPosition || "Other");

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Collapsible from "../common/Collapsible"
+import EmptyState from "../common/EmptyState"
 
 function PlayerBio({ player }) {
     const [descriptionOpen, setDescriptionOpen] = useState(true)
@@ -24,7 +25,7 @@ function PlayerBio({ player }) {
                 )}
             </div>
 
-            {player.strDescriptionEN && (
+            {player.strDescriptionEN ? (
                 <div className="player-bio__description">
                     <button className="player-bio__toggle" onClick={() => setDescriptionOpen(prev => !prev)}>
                         {descriptionOpen ? "Hide" : "Show"} description
@@ -33,6 +34,8 @@ function PlayerBio({ player }) {
                         <p>{player.strDescriptionEN}</p>
                     </Collapsible>
                 </div>
+            ) : (
+                <EmptyState message="No description available."/>
             )}
         </div>
     )

@@ -16,6 +16,10 @@ vi.mock("../../components/common/Collapsible", () => ({
   ),
 }));
 
+vi.mock("../../components/common/EmptyState", () => ({
+  default: ({ message }) => <div data-testid="empty-state">{message}</div>,
+}));
+
 const fullPlayer = {
   idPlayer: "34145938",
   strPlayer: "Patrick Mahomes",
@@ -85,12 +89,24 @@ describe("PlayerBio", () => {
     expect(screen.queryByText(/ft|lb|kg|m\)/)).not.toBeInTheDocument();
   });
 
-  it("does not render a description toggle when strDescriptionEN is missing", () => {
+  // CHANGED: was "does not render a description toggle when
+  // strDescriptionEN is missing" — still true, but now also asserts the
+  // explicit replacement message shows up instead of nothing.
+  it("shows a 'no description' message instead of a toggle when strDescriptionEN is missing", () => {
     const { strDescriptionEN, ...playerWithoutDescription } = fullPlayer;
     render(<PlayerBio player={playerWithoutDescription} />);
+
     expect(
       screen.queryByRole("button", { name: /description/i })
     ).not.toBeInTheDocument();
+    expect(screen.getByTestId("empty-state")).toHaveTextContent(
+      "No description available."
+    );
+  });
+
+  it("does not show the 'no description' message when strDescriptionEN is present", () => {
+    render(<PlayerBio player={fullPlayer} />);
+    expect(screen.queryByTestId("empty-state")).not.toBeInTheDocument();
   });
 
   it("renders an OPEN description toggle by default when strDescriptionEN is present", () => {

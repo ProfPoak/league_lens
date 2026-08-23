@@ -8,7 +8,7 @@ League Lens keeps things simple by design — a curated set of leagues, click-th
 
 ## Features
 
-- **Home (`/`)** — Accordion of curated leagues (NFL, NBA, MLB, NHL, WNBA, MLS, NCAA Football, NCAA Basketball). Expanding a league loads its teams and next league-wide event, with a client-side filter to narrow the team list.
+- **Home (`/`)** — Accordion of curated leagues (NFL, NBA, MLB, NHL, NWSL, WNBA, MLS, NCAA Football, NCAA Basketball). Expanding a league loads its teams and next league-wide event, with a client-side filter to narrow the team list.
 - **Team (`/team/:id`)** — Tabbed team page: Overview (badge, stadium, founded year, description, next/last game) and Roster (players grouped by position).
 - **Player (`/player/:id`)** — Player header, bio, and a stats table (when available).
 

@@ -43,7 +43,7 @@ League Lens keeps things simple by design — a curated set of leagues, click-th
    npm test
    ```
    
-Deployed page link: https://leaguelen.netlify.app/
+   Deployed page link: https://leaguelen.netlify.app/
 ---
 
 ## API Used

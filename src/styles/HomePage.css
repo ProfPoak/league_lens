@@ -118,16 +118,23 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
   background: transparent;
   border: none;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-text);
   cursor: pointer;
   text-align: left;
+}
+
+.league-accordion-item__button img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .league-accordion-item__button:hover {

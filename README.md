@@ -85,7 +85,6 @@ TheSportsDB's free tier imposes constraints that shaped this app's design rather
 - Limitations to the number of returned players and teams from the API prevent the app from being a full scale production and more of a proof of concept.
 - The navigation from Team back to League requires reselecting the League from the home page.
 - The navigation from Player back to Roster requires passing through the defaulted Overview page.
-- Color and theming are minimal, since visual/styling design isn't yet a strength.
 
 ---
 

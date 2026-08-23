@@ -80,9 +80,9 @@ beforeEach(() => {
 });
 
 describe("LeagueAccordionItem", () => {
-  it("renders the league name as the toggle button", () => {
+  it("renders the league name and logo as the toggle button", () => {
     render(<LeagueAccordionItem league={league} isOpen={false} onToggle={() => {}} />);
-    expect(screen.getByRole("button", { name: league.name })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: `${league.name} logo${league.name}` })).toBeInTheDocument();
   });
 
   it("reflects isOpen via aria-expanded", () => {
@@ -100,7 +100,7 @@ describe("LeagueAccordionItem", () => {
     const onToggle = vi.fn();
     render(<LeagueAccordionItem league={league} isOpen={false} onToggle={onToggle} />);
 
-    await user.click(screen.getByRole("button", { name: league.name }));
+    await user.click(screen.getByRole("button", { name: `${league.name} logo${league.name}` }));
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
 

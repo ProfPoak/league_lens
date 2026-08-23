@@ -30,8 +30,6 @@ import { useSportsDbFetch } from '../../hooks/useSportsDbFetch';
     return (
     <div className="league-accordion-item">
       
-      
-
       <button className="league-accordion-item__button" onClick={onToggle} aria-expanded={isOpen}>
         <img src={league.image} alt={`${league.name} logo`} />
         {league.name}
